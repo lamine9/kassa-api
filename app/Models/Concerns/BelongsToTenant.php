@@ -26,6 +26,16 @@ trait BelongsToTenant
             }
         });
 
+        static::updating(function (Model $model): void {
+            $tenantId = app(TenantContext::class)->id();
+
+            if ($model->tenant_id !== $tenantId) {
+                throw new RuntimeException(
+                    'Impossible de déplacer une donnée vers un autre tenant.'
+                );
+            }
+        });
+
         static::addGlobalScope('tenant', function (Builder $builder): void {
             $tenantContext = app(TenantContext::class);
 

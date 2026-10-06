@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\CustomerController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\StockMovementController;
+use App\Http\Controllers\Api\V1\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\UnitController;
 
@@ -78,6 +80,44 @@ Route::prefix('v1')->group(function () {
 
         Route::post('/stock-movements', [StockMovementController::class, 'store'])
             ->middleware('permission:stock.create');
+
+        // Customers
+        Route::get('/customers', [CustomerController::class, 'index'])
+            ->middleware('permission:customers.view');
+
+        Route::post('/customers', [CustomerController::class, 'store'])
+            ->middleware('permission:customers.create');
+
+        Route::get('/customers/{customer}', [CustomerController::class, 'show'])
+            ->middleware('permission:customers.view');
+
+        Route::put('/customers/{customer}', [CustomerController::class, 'update'])
+            ->middleware('permission:customers.update');
+
+        Route::patch('/customers/{customer}', [CustomerController::class, 'update'])
+            ->middleware('permission:customers.update');
+
+        Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])
+            ->middleware('permission:customers.delete');
+
+        // Suppliers
+        Route::get('/suppliers', [SupplierController::class, 'index'])
+            ->middleware('permission:suppliers.view');
+
+        Route::post('/suppliers', [SupplierController::class, 'store'])
+            ->middleware('permission:suppliers.create');
+
+        Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])
+            ->middleware('permission:suppliers.view');
+
+        Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])
+            ->middleware('permission:suppliers.update');
+
+        Route::patch('/suppliers/{supplier}', [SupplierController::class, 'update'])
+            ->middleware('permission:suppliers.update');
+
+        Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])
+            ->middleware('permission:suppliers.delete');
     });
      //demo
     //20|7Bd2K3LAI8cMFOBYcdE36ze6znAn7oI3JSvGHqXufa1f2ad6

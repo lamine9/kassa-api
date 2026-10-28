@@ -40,6 +40,12 @@ trait BelongsToTenant
             $tenantContext = app(TenantContext::class);
 
             if (!$tenantContext->hasTenant()) {
+                // Sanctum doit pouvoir retrouver l'utilisateur
+                // avant que le contexte du tenant soit initialisé.
+                if ($builder->getModel() instanceof \App\Models\User) {
+                    return;
+                }
+
                 throw new RuntimeException(
                     'Aucun tenant actif pour cette requête.'
                 );

@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CustomerController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\PurchaseController;
 use App\Http\Controllers\Api\V1\StockMovementController;
 use App\Http\Controllers\Api\V1\SupplierController;
+use App\Http\Controllers\Api\V1\SupplierReturnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\UnitController;
 
@@ -118,7 +120,54 @@ Route::prefix('v1')->group(function () {
 
         Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])
             ->middleware('permission:suppliers.delete');
+
+        // Achats
+        Route::get('/purchases', [PurchaseController::class, 'index'])
+            ->middleware('permission:purchases.view');
+
+        Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])
+            ->middleware('permission:purchases.view');
+
+        Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])
+            ->middleware('permission:purchases.update');
+
+        Route::patch('/purchases/{purchase}', [PurchaseController::class, 'update'])
+            ->middleware('permission:purchases.update');
+
+        Route::post('/purchases', [PurchaseController::class, 'store'])
+            ->middleware('permission:purchases.create');
+
+        Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])
+            ->middleware('permission:purchases.delete');
+
+        Route::post('/purchases/{purchase}/receive', [PurchaseController::class, 'receive'])
+            ->middleware('permission:purchases.receive');
+
+        // Retours fournisseurs
+        Route::prefix('supplier-returns')
+            ->controller(SupplierReturnController::class)
+            ->group(function () {
+                Route::get('/', 'index')->middleware('permission:supplier_returns.view');
+                Route::post('/', 'store')->middleware('permission:supplier_returns.create');
+
+                Route::get('/{supplierReturn}', 'show')
+                    ->middleware('permission:supplier_returns.view');
+
+                Route::put('/{supplierReturn}', 'update')
+                    ->middleware('permission:supplier_returns.update');
+
+                Route::patch('/{supplierReturn}', 'update')
+                    ->middleware('permission:supplier_returns.update');
+
+                Route::post('/{supplierReturn}/validate', 'validateReturn')
+                    ->middleware('permission:supplier_returns.validate');
+
+                Route::post('/{supplierReturn}/cancel', 'cancel')
+                    ->middleware('permission:supplier_returns.cancel');
+            });
+
     });
+
      //demo
     //20|7Bd2K3LAI8cMFOBYcdE36ze6znAn7oI3JSvGHqXufa1f2ad6
 

@@ -7,12 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Concerns\BelongsToTenant;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use Notifiable;
     use HasRoles;
+    use BelongsToTenant;
 
     protected $fillable = [
         'name',

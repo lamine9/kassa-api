@@ -35,6 +35,20 @@ class RolePermissionSeeder extends Seeder
             'stock.adjust',
             'stock.transfer',
 
+            //Achats
+            'purchases.view',
+            'purchases.create',
+            'purchases.update',
+            'purchases.delete',
+            'purchases.receive',
+
+            // Retours fournisseurs
+            'supplier_returns.view',
+            'supplier_returns.create',
+            'supplier_returns.update',
+            'supplier_returns.validate',
+            'supplier_returns.cancel',
+
             // Ventes
             'sales.view',
             'sales.create',
@@ -150,6 +164,12 @@ class RolePermissionSeeder extends Seeder
             'suppliers.create',
             'suppliers.update',
 
+            'supplier_returns.view',
+            'supplier_returns.create',
+            'supplier_returns.update',
+            'supplier_returns.validate',
+            'supplier_returns.cancel',
+
             'cash_registers.view',
             'cash_sessions.open',
             'cash_sessions.close',
@@ -200,6 +220,12 @@ class RolePermissionSeeder extends Seeder
             'suppliers.view',
             'suppliers.create',
             'suppliers.update',
+
+            'supplier_returns.view',
+            'supplier_returns.create',
+            'supplier_returns.update',
+            'supplier_returns.validate',
+            'supplier_returns.cancel',
         ]);
     }
 }
